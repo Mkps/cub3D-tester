@@ -1,5 +1,5 @@
 #!/bin/bash
-execPath="Cub3D"
+execPath="cub3D"
 makePath="."
 mapsPath='cub3d-tester/maps/errors/'
 
@@ -13,6 +13,8 @@ end='\e[0m'
 end='\e[0m'
 passed=0
 failed=0
+leak=0
+vg='valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=42'
 
 head () {
   padding="$(printf '%0.1s' \#{1..500})"
@@ -36,22 +38,33 @@ fail () {
   printf "${red}%*.*s %s %*.*s${end}\n\n" 0 "$(((termwidth-5-8)/2))" "$padding" " Failed " 0 "$(((termwidth-6-${#1})/2))" "$padding"
 }
 
+leak () {
+	let "leak+=1"
+  	padding="$(printf '%0.1s' -{1..500})"
+	printf "${yellow}%*.*s %s %*.*s${end}\n\n" 0 "$(((termwidth-5-8)/2))" "$padding" " Memleak(s) detected" 0 "$(((termwidth-6-${#1})/2))" "$padding"
+}
+
 launch () {
 	log $1
-	if ./${execPath} ${mapsPath}$1;
+	${vg} ./${execPath} ${mapsPath}$1;
+	ret_val=$?
+	if [ $ret_val -eq 0 ]
 	then
 		fail
+	elif [ $ret_val -eq 42 ]
+	then
+		leak
 	else
 		pass
 	fi
 }
 
 result () {
-	if let "failed == 0";
+	if let "failed == 0 && leak == 0";
 	then
 		printf "${green}YEAH ! All tests successfully passed ! Good job !${end}\n"
 	else
-		printf "${green}${passed}${end} tests passed, ${red}${failed}${end} tests failed.\n"
+		printf "${green}${passed}${end} tests passed, ${red}${failed}${end} tests failed. ${yellow}${leak}${end} leaks\n"
 		printf "Don't worry, im sure you can fix it ! Keep it up !\n"
 	fi
 }
