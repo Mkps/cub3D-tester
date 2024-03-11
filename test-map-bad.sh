@@ -1,7 +1,7 @@
 #!/bin/bash
 execPath="cub3D"
 makePath="."
-mapsPath='cub3d-tester/maps/errors/'
+mapsPath='cub3d-tester/maps/bad/'
 
 termwidth="$(tput cols)"
 green='\e[1;32m'
@@ -78,31 +78,47 @@ date
 log "Last commit:"
 git --no-pager log --decorate=short --pretty=oneline -n1
 
-head "Testing Resolution"
-launch "map-res-0.cub"
-launch "map-res-1.cub"
-launch "map-res-2.cub"
-launch "map-res-3.cub"
-launch "map-res-4.cub"
+head "Testing Color"
+launch "color_invalid_rgb.cub"
+launch "color_missing.cub"
+launch "color_missing_ceiling_rgb.cub"
+launch "color_missing_floor.cub"
+launch "color_none.cub"
 
-head "Testing NO texture"
-launch "map-no-0.cub"
-launch "map-no-1.cub"
-launch "map-no-2.cub"
-launch "map-no-3.cub"
-launch "map-no-4.cub"
+head "Testing file"
+launch "empty.cub"
+launch "file_letter_end.cub"
+launch "filetype_missing.cub"
+launch "filetype_wrong.cub"
+launch "forbidden.cub"
 
-head "Testing RGB"
-launch "map-rgb-0.cub"
-launch "map-rgb-1.cub"
-launch "map-rgb-2.cub"
-launch "map-rgb-3.cub"
-launch "map-rgb-4.cub"
+head "Testing Map"
+launch "map_first.cub"
+launch "map_middle.cub"
+launch "map_missing.cub"
+launch "map_only.cub"
+launch "map_too_small.cub"
 
-head "Testing spawns"
-launch "map-spawn-0.cub"
-launch "map-spawn-1.cub"
-launch "map-spawn-2.cub"
+head "Testing Player"
+launch "player_multiple.cub"
+launch "player_none.cub"
+launch "player_on_edge.cub"
+
+head "Testing Textures"
+launch "textures_dir.cub"
+launch "textures_duplicate.cub"
+launch "textures_forbidden.cub"
+launch "textures_invalid.cub"
+launch "textures_missing.cub"
+launch "textures_none.cub"
+launch "textures_not_xpm.cub"
+
+head "Testing Walls"
+launch "wall_hole_east.cub"
+launch "wall_hole_north.cub"
+launch "wall_hole_south.cub"
+launch "wall_hole_west.cub"
+launch "wall_none.cub"
 
 head "DONE"
 result

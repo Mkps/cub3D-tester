@@ -1,7 +1,7 @@
 #!/bin/bash
 execPath="cub3D"
-makePath="."
-mapsPath='cub3d-tester/maps/errors/'
+makePath=".."
+mapsPath='cub3d-tester/maps/good/'
 
 termwidth="$(tput cols)"
 green='\e[1;32m'
@@ -10,7 +10,6 @@ blueBg='\e[46m'
 blue='\e[34m'
 red='\e[31m'
 end='\e[0m'
-end='\e[0m'
 passed=0
 failed=0
 leak=0
@@ -18,7 +17,7 @@ vg='valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=42'
 
 head () {
   padding="$(printf '%0.1s' \#{1..500})"
-  printf "\n${yellow}%*.*s %s %*.*s${end}\n" 0 "$(((termwidth-5-${#1})/2))" "$padding" "  $1  " 0 "$(((termwidth-6-${#1})/2))" "$padding"
+  printf "${yellow}%*.*s %s %*.*s${end}\n" 0 "$(((termwidth-5-${#1})/2))" "$padding" "  $1  " 0 "$(((termwidth-6-${#1})/2))" "$padding"
 }
 
 log () {
@@ -44,18 +43,19 @@ leak () {
 	printf "${yellow}%*.*s %s %*.*s${end}\n\n" 0 "$(((termwidth-5-8)/2))" "$padding" " Memleak(s) detected" 0 "$(((termwidth-6-${#1})/2))" "$padding"
 }
 
+
 launch () {
 	log $1
 	${vg} ./${execPath} ${mapsPath}$1;
 	ret_val=$?
 	if [ $ret_val -eq 0 ]
 	then
-		fail
+		pass
 	elif [ $ret_val -eq 42 ]
 	then
 		leak
 	else
-		pass
+		fail
 	fi
 }
 
@@ -64,7 +64,7 @@ result () {
 	then
 		printf "${green}YEAH ! All tests successfully passed ! Good job !${end}\n"
 	else
-		printf "${green}${passed}${end} tests passed, ${red}${failed}${end} tests failed. ${yellow}${leak}${end} leaks\n"
+		printf "${green}${passed}${end} tests passed, ${red}${failed}${end} tests failed.\n"
 		printf "Don't worry, im sure you can fix it ! Keep it up !\n"
 	fi
 }
@@ -78,31 +78,29 @@ date
 log "Last commit:"
 git --no-pager log --decorate=short --pretty=oneline -n1
 
-head "Testing Resolution"
-launch "map-res-0.cub"
-launch "map-res-1.cub"
-launch "map-res-2.cub"
-launch "map-res-3.cub"
-launch "map-res-4.cub"
+log "Notes:"
+printf "If a test is successful you should close the opened Cub3d to continue.\n"
+printf "If it failed your Cub3d should handle this error and print a message accordingly.\n"
 
-head "Testing NO texture"
-launch "map-no-0.cub"
-launch "map-no-1.cub"
-launch "map-no-2.cub"
-launch "map-no-3.cub"
-launch "map-no-4.cub"
+head "Testing working maps"
 
-head "Testing RGB"
-launch "map-rgb-0.cub"
-launch "map-rgb-1.cub"
-launch "map-rgb-2.cub"
-launch "map-rgb-3.cub"
-launch "map-rgb-4.cub"
-
-head "Testing spawns"
-launch "map-spawn-0.cub"
-launch "map-spawn-1.cub"
-launch "map-spawn-2.cub"
+launch "cheese_maze.cub"
+launch "creepy.cub"
+launch "dungeon.cub"
+launch "library.cub"
+launch "matrix.cub"
+launch "sad_face.cub"
+launch "square_map.cub"
+launch "subject_map.cub"
+launch "test_map.cub"
+launch "test_map_hole.cub"
+launch "test_pos_bottom.cub"
+launch "test_pos_left.cub"
+launch "test_pos_right.cub"
+launch "test_pos_top.cub"
+launch "test_textures.cub"
+launch "test_whitespaces.cub"
+launch "works.cub"
 
 head "DONE"
 result
