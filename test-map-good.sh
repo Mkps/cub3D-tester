@@ -1,7 +1,7 @@
 #!/bin/bash
 execPath="cub3D"
-makePath=".."
-mapsPath='cub3d-tester/maps/good/'
+makePath="."
+mapsPath='cub3D-tester/maps/good/'
 
 termwidth="$(tput cols)"
 green='\e[1;32m'
@@ -99,7 +99,7 @@ launch "test_pos_left.cub"
 launch "test_pos_right.cub"
 launch "test_pos_top.cub"
 launch "test_textures.cub"
-launch "test_whitespaces.cub"
+launch "test_whitespace.cub"
 launch "works.cub"
 
 head "DONE"
