@@ -1,8 +1,8 @@
-NO ./north.xpm
-SO ./south.xpm
-EA	./east.xpm
-WE	./west.xpm
-DO  ./brick.xpm
+NO cub3D-tester/textures/wall.xpm
+SO cub3D-tester/textures/wall.xpm
+EA	cub3D-tester/textures/wall.xpm
+WE	cub3D-tester/textures/wall.xpm
+DO  cub3D-tester/textures/bricks.xpm
 
 F 50,50,50
 C 100,100,100

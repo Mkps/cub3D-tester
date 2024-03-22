@@ -1,7 +1,7 @@
-NO north.xpm
-SO south.xpm
-EA east.xpm
-WE west.xpm
+NO cub3D-tester/textures/test/north.xpm
+SO cub3D-tester/textures/test/south.xpm
+WE cub3D-tester/textures/test/west.xpm
+EA cub3D-tester/textures/test/east.xpm
 F 0, 0, 0
 C 80, 80, 80
 
