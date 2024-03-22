@@ -1,7 +1,7 @@
 #!/bin/bash
 execPath="cub3D"
 makePath="."
-mapsPath='cub3d-tester/maps/errors/'
+mapsPath='cub3D-tester/maps/errors/'
 
 termwidth="$(tput cols)"
 green='\e[1;32m'
