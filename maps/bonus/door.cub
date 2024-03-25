@@ -2,14 +2,14 @@ NO cub3D-tester/textures/wall.xpm
 SO cub3D-tester/textures/wall.xpm
 EA	cub3D-tester/textures/wall.xpm
 WE	cub3D-tester/textures/wall.xpm
-DO  cub3D-tester/textures/bricks.xpm
+DO  cub3D-tester/textures/door.xpm
 
 F 50,50,50
 C 100,100,100
 
 11111111111
-1000000000D1
-1   000000001
-100100000001
+100000000011
+1111000000001
+100111D11111
 100D00N0001
 11111111111
